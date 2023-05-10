@@ -19,9 +19,17 @@ function activate(context) {
   // The commandId parameter must match the command field in package.json
   let disposable = vscode.commands.registerCommand('restore-branch-workspace.helloWorld', function () {
     // The code you place here will be executed every time your command is executed
+    const outputChannel = vscode.window.createOutputChannel('branch-restore-log');
 
     // Display a message box to the user
     vscode.window.showInformationMessage('Hello World from Restore Branch Workspace!');
+
+    const open_files = vscode.workspace.textDocuments;
+    for(const file of open_files) {
+      outputChannel.appendLine('File Name:');
+      outputChannel.appendLine(file.fileName);
+    }
+    outputChannel.show();
   });
 
   context.subscriptions.push(disposable);
